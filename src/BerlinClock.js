@@ -1,2 +1,2 @@
-function BerlinClock() {	
+var BerlinClock = {	
 }
