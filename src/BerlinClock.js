@@ -1,10 +1,14 @@
 var BerlinClock = {
 	tick: function(){
-		var date = new Date();
+		var date = new Date(),
+			hours = date.getHours(),
+			minutes = date.getMinutes()
+			seconds = date.getSeconds();
 		BerlinClock.reset();
-		BerlinClock.updateSeconds(date.getSeconds());
-		BerlinClock.updateHours(date.getHours());
-		BerlinClock.updateMinutes(date.getMinutes());
+		BerlinClock.updateHours(hours);
+		BerlinClock.updateMinutes(minutes);
+		BerlinClock.updateSeconds(seconds);
+		BerlinClock.updateClock(hours, minutes, seconds);
 	},
 	reset: function(){
 		var hoursOfFive = document.getElementById("hoursOfFive").children,
@@ -22,6 +26,18 @@ var BerlinClock = {
 			minutesOfFive[i].classList.remove(red);
 			minutesOfFive[i].classList.remove(yellow);
 		}
+	},
+	updateClock: function(hours, minutes, seconds){
+		var fixTime = function(n){
+			if(n < 10){
+				return "0" + n;
+			}
+			return n;
+		}
+		hours = fixTime(hours);
+		minutes = fixTime(minutes);
+		seconds = fixTime(seconds);
+		document.getElementById("clock").innerHTML = hours + ":" + minutes + ":" + seconds;
 	},
 	updateSeconds: function(seconds){
 		var secondDiv = document.getElementById("seconds").children[0];

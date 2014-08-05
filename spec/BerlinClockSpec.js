@@ -8,6 +8,7 @@ describe("BerlinClock", function(){
 		affix("div#hoursOfOne div+div+div+div");
 		affix("div#minutesOfFive div+div+div+div+div+div+div+div+div+div+div");
 		affix("div#minutesOfOne div+div+div+div");
+		affix("div#clock");
 	});
 
 	describe("updateSeconds", function(){
@@ -576,5 +577,37 @@ describe("BerlinClock", function(){
 				verifyMinutesOfOne(none, none, none, none);
 			})
 		});	
+	});
+	describe("updateClock", function(){
+		it("adds a leading 0 to seconds when the second is 0", function(){
+			BerlinClock.updateClock(0, 0, 0);
+			var time = document.getElementById("clock").innerHTML;
+			expect(time).toBe("00:00:00");
+		});
+		it("adds a leading 0 to seconds when the second is 9", function(){
+			BerlinClock.updateClock(0, 0, 9);
+			var time = document.getElementById("clock").innerHTML;
+			expect(time).toBe("00:00:09");
+		});
+		it("adds a leading 0 to minutess when the minute is 0", function(){
+			BerlinClock.updateClock(0, 0, 0);
+			var time = document.getElementById("clock").innerHTML;
+			expect(time).toBe("00:00:00");
+		});
+		it("adds a leading 0 to minutes when the minute is 9", function(){
+			BerlinClock.updateClock(0, 9, 0);
+			var time = document.getElementById("clock").innerHTML;
+			expect(time).toBe("00:09:00");
+		});
+		it("adds a leading 0 to hours when the hour is 0", function(){
+			BerlinClock.updateClock(0, 0, 0);
+			var time = document.getElementById("clock").innerHTML;
+			expect(time).toBe("00:00:00");
+		});
+		it("adds a leading 0 to hours when the hour is 9", function(){
+			BerlinClock.updateClock(9, 0, 0);
+			var time = document.getElementById("clock").innerHTML;
+			expect(time).toBe("09:00:00");
+		});
 	});
 });

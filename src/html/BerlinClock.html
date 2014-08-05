@@ -31,6 +31,11 @@
 			display: inline-block;
 			margin-bottom: 5px;
 	    }
+	    #clock {
+	    	font-size: 40px;
+	    	text-align: center;
+	    	color: white;
+	    }
 		.yellow {
 			background-color: yellow;
 		}
@@ -77,20 +82,23 @@
 				<div></div>
 				<div></div>
 			</div>
+			<div class="row">
+				<div id="clock" class="col-sm-12"></div>
+			</div>	
 		</div>
 	</body>
 	<script type="text/javascript">
+		//for the sake of easy setup I am using jQuery and bootstrap to make it look decent.
 		var resize = function(){
 				var width = $(".row").css("width").replace("px", "") / 11;
 				$("#minutesOfFive div").css("width", width);
 				$(".row div").css("height", window.innerHeight / 6);
 			},
 			updateView = function(){
-				$(".row div").addClass("ticker");
+				$(".row div:not(#clock)").addClass("ticker");
 	       		$("#hoursOfFive div, #hoursOfOne div, #minutesOfOne div").addClass("col-sm-3");
 	       		$("#minutesOfFive div").addClass("col-sm-1");
 			};
-		//using the jQuery ready method to avoid the messyness of implementing it in pure javascript.
 		$( document ).ready(
 			function() {
 				resize();
