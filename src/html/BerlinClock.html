@@ -1,21 +1,32 @@
+<script src="C:\development\js\berlin_clock\berlin_clock\BerlinClock-js\src\BerlinClock.js"></script>
+<script src="C:\development\js\berlin_clock\berlin_clock\BerlinClock-js\lib\jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="C:\development\js\berlin_clock\berlin_clock\BerlinClock-js\lib\bootstrap.min.css">
+<script src="C:\development\js\berlin_clock\berlin_clock\BerlinClock-js\lib\bootstrap.min.js" ></script>
+
+<!--
 <script src="../BerlinClock.js" />
 <script src="../../lib/jquery-2.1.1.min.js" />
 <link rel="stylesheet" href="../../lib/bootstrap.min.css">
 <script src="../../lib/bootstrap.min.js" />
+-->
 
 <html>	
 	<style type="text/css">
 		.row div:first-child{
 			border-radius: 10px 0px 0px 10px;
 		}
+		.row div {
+			border-right: 2px solid black;
+		}
 		.row div:last-child{
 			border-radius: 0px 10px 10px 0px;
+			border-right: none !important;
 		}
 		#seconds div{
 			border-radius: 10px;
 		}
 		.ticker {
-	        height: 25px;
+	        height: 40px;
 			background-color: white;
 			display: inline-block;
 			margin-bottom: 5px;
@@ -70,18 +81,23 @@
 	</body>
 	<script type="text/javascript">
 		var resize = function(){
-			var width = $(".row").css("width").replace("px", "") / 11;
-			$("#minutesOfFive div").css("width", width);
-		}
-		$( document ).ready(function() {
-       		var berlinClock = new BerlinClock();
-       			
-       		$(".row div").addClass("ticker");
-       		$("#hoursOfFive div, #hoursOfOne div, #minutesOfOne div").addClass("col-sm-3");
-       		$("#minutesOfFive div").addClass("col-sm-1");
-   			resize();
-   			$(window).resize(resize);
-        	setInterval(berlinClock.tick, 1000);
+				var width = $(".row").css("width").replace("px", "") / 11;
+				$("#minutesOfFive div").css("width", width);
+				$(".row div").css("height", window.innerHeight / 6);
+			},
+			updateView = function(){
+				$(".row div").addClass("ticker");
+	       		$("#hoursOfFive div, #hoursOfOne div, #minutesOfOne div").addClass("col-sm-3");
+	       		$("#minutesOfFive div").addClass("col-sm-1");
+			};
+		//using the jQuery ready method to avoid the messyness of implementing it in pure javascript.
+		$( document ).ready(
+			function() {
+				resize();
+				updateView();
+				BerlinClock.tick();
+	   			$(window).resize(resize);
+	        	setInterval(BerlinClock.tick, 1000);
     	});
 	</script>
 </html>
