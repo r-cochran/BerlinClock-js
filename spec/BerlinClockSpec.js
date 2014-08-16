@@ -11,8 +11,52 @@ describe("BerlinClock", function(){
 		affix("div#clock");
 	});
 
+	describe("tick", function(){
+		beforeEach(function(){
+			spyOn(BerlinClock, "updateSeconds");
+			spyOn(BerlinClock, "updateHours");
+			spyOn(BerlinClock, "updateMinutes");
+			spyOn(BerlinClock, "updateClock");
+			spyOn(BerlinClock, "reset");
+			BerlinClock.tick();
+		});
+
+		it("updates the seconds", function(){
+			expect(BerlinClock.updateSeconds).toHaveBeenCalled();
+		});
+
+		it("updates the hours", function(){
+
+		});
+
+		it("updates the minutes", function(){
+
+		});
+
+		it("updates the clock", function(){
+
+		});
+
+		it("resets the clock, clearing out all colors", function(){
+
+		});
+	});
+
+	describe("reset", function(){
+		it("removes all red lights", function(){
+
+		});
+
+		it("removes all yellow lights", function(){
+
+		});
+	});
+
 	describe("updateSeconds", function(){
 		it("marks the seconds as yellow when the second is odd", function(){
+			BerlinClock.updateSeconds(1);
+			var seconds = document.getElementById("seconds").children[0];
+			expect(seconds.className).toBe(yellow);
 		});
 
 		it("marks the seconds as white when the second is even", function(){
