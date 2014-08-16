@@ -49,371 +49,327 @@ describe("BerlinClock", function(){
 		});
 
 		it("removes all red lights", function(){
-			expect(document.querySelectorAll(".red").length).toBe(0);
+			expect($(".red").length).toBe(0);
 		});
 
 		it("removes all yellow lights", function(){
-			expect(document.querySelectorAll(".yellow").length).toBe(0);
+			expect($(".yellow").length).toBe(0);
 		});
 	});
 
 	describe("updateSeconds", function(){
 		it("marks the seconds as yellow when the second is odd", function(){
 			BerlinClock.updateSeconds(1);
-			var secondDiv = document.getElementById("seconds").children[0];
-			expect(secondDiv.className).toBe(yellow);
+			expect($("#seconds div")).toHaveClass(yellow);
 		});
 
 		it("marks the seconds as white when the second is even", function(){
+			BerlinClock.updateSeconds(1);
 			BerlinClock.updateSeconds(2);
-			var secondDiv = document.getElementById("seconds").children[0];
-			expect(secondDiv.className).not.toBe(yellow);
+			expect($("#seconds div")).not.toHaveClass(yellow);
 		});
 	});
 	
 	describe("updateHours", function(){
 		var verifyHours = function(children, one, two, three, four){
-				expect(children[0].className).toBe(one);
-				expect(children[1].className).toBe(two);
-				expect(children[2].className).toBe(three);
-				expect(children[3].className).toBe(four);
+				expect(children[0]).toHaveClass(one);
+				expect(children[1]).toHaveClass(two);
+				expect(children[2]).toHaveClass(three);
+				expect(children[3]).toHaveClass(four);
+			},
+			updateHours = function(hour){
+				BerlinClock.updateHours(hour);	
+				hoursOfFive = $("#hoursOfFive div");
+				hoursOfOne = $("#hoursOfOne div");
 			},
 			hoursOfFive = null,
 			hoursOfOne = null;	
 		describe("the hour is 0", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(0);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(0);
 			})
 			it("has hoursOfFive as [O O O O]", function(){
-				verifyHours(hoursOfFive.children, none, none, none, none);
+				verifyHours(hoursOfFive, none, none, none, none);
 			});
 			it("has hoursOfOne as [O O O O]", function(){
-				verifyHours(hoursOfOne.children, none, none, none, none);
+				verifyHours(hoursOfOne, none, none, none, none);
 			});
 		});
 		describe("the hour is 1", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(1);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(1);
 			})
 			it("has hoursOfFive as [O O O O]", function(){
-				verifyHours(hoursOfFive.children, none, none, none, none);
+				verifyHours(hoursOfFive, none, none, none, none);
 			});
 			it("has hoursOfOne as [R O O O]", function(){
-				verifyHours(hoursOfOne.children, red, none, none, none);
+				verifyHours(hoursOfOne, red, none, none, none);
 			});
 		});
 		describe("the hour is 2", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(2);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(2);
 			})
 			it("has hoursOfFive as [O O O O]", function(){
-				verifyHours(hoursOfFive.children, none, none, none, none);
+				verifyHours(hoursOfFive, none, none, none, none);
 			});
 			it("has hoursOfOne as [R R O O]", function(){
-				verifyHours(hoursOfOne.children, red, red, none, none);
+				verifyHours(hoursOfOne, red, red, none, none);
 			});
 		});
 		describe("the hour is 3", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(3);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(3);
 			})
 			it("has hoursOfFive as [O O O O]", function(){
-				verifyHours(hoursOfFive.children, none, none, none, none);
+				verifyHours(hoursOfFive, none, none, none, none);
 			});
 			it("has hoursOfOne as [R R R O]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, none);
+				verifyHours(hoursOfOne, red, red, red, none);
 			});
 		});
 		describe("the hour is 4", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(4);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(4);
 			})
 			it("has hoursOfFive as [O O O O]", function(){
-				verifyHours(hoursOfFive.children, none, none, none, none);
+				verifyHours(hoursOfFive, none, none, none, none);
 			});
 			it("has hoursOfOne as [R R R R]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, red);
+				verifyHours(hoursOfOne, red, red, red, red);
 			});
 		});
 		describe("the hour is 5", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(5);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(5);
 			})
 			it("has hoursOfFive as [R O O O]", function(){
-				verifyHours(hoursOfFive.children, red, none, none, none);
+				verifyHours(hoursOfFive, red, none, none, none);
 			});
 			it("has hoursOfOne as [O O O O]", function(){
-				verifyHours(hoursOfOne.children, none, none, none, none);
+				verifyHours(hoursOfOne, none, none, none, none);
 			});
 		});
 		describe("the hour is 6", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(6);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(6);
 			})
 			it("has hoursOfFive as [R O O O]", function(){
-				verifyHours(hoursOfFive.children, red, none, none, none);
+				verifyHours(hoursOfFive, red, none, none, none);
 			});
 			it("has hoursOfOne as [R O O O]", function(){
-				verifyHours(hoursOfOne.children, red, none, none, none);
+				verifyHours(hoursOfOne, red, none, none, none);
 			});
 		});
 		describe("the hour is 7", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(7);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(7);
 			})
 			it("has hoursOfFive as [R O O O]", function(){
-				verifyHours(hoursOfFive.children, red, none, none, none);
+				verifyHours(hoursOfFive, red, none, none, none);
 			});
 			it("has hoursOfOne as [R R O O]", function(){
-				verifyHours(hoursOfOne.children, red, red, none, none);
+				verifyHours(hoursOfOne, red, red, none, none);
 			});
 		});
 		describe("the hour is 8", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(8);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(8);
 			})
 			it("has hoursOfFive as [R O O O]", function(){
-				verifyHours(hoursOfFive.children, red, none, none, none);
+				verifyHours(hoursOfFive, red, none, none, none);
 			});
 			it("has hoursOfOne as [R R R O]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, none);
+				verifyHours(hoursOfOne, red, red, red, none);
 			});
 		});
 		describe("the hour is 9", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(9);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(9);
 			})
 			it("has hoursOfFive as [R O O O]", function(){
-				verifyHours(hoursOfFive.children, red, none, none, none);
+				verifyHours(hoursOfFive, red, none, none, none);
 			});
 			it("has hoursOfOne as [R R R R]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, red);
+				verifyHours(hoursOfOne, red, red, red, red);
 			});
 		});
 		describe("the hour is 10", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(10);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(10);
 			})
 			it("has hoursOfFive as [R R O O]", function(){
-				verifyHours(hoursOfFive.children, red, red, none, none);
+				verifyHours(hoursOfFive, red, red, none, none);
 			});
 			it("has hoursOfOne as [O O O O]", function(){
-				verifyHours(hoursOfOne.children, none, none, none, none);
+				verifyHours(hoursOfOne, none, none, none, none);
 			});
 		});
 		describe("the hour is 11", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(11);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(11);
 			})
 			it("has hoursOfFive as [R R O O]", function(){
-				verifyHours(hoursOfFive.children, red, red, none, none);
+				verifyHours(hoursOfFive, red, red, none, none);
 			});
 			it("has hoursOfOne as [R O O O]", function(){
-				verifyHours(hoursOfOne.children, red, none, none, none);
+				verifyHours(hoursOfOne, red, none, none, none);
 			});
 		});
 		describe("the hour is 12", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(12);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(12);
 			})
 			it("has hoursOfFive as [R R O O]", function(){
-				verifyHours(hoursOfFive.children, red, red, none, none);
+				verifyHours(hoursOfFive, red, red, none, none);
 			});
 			it("has hoursOfOne as [R R O O]", function(){
-				verifyHours(hoursOfOne.children, red, red, none, none);
+				verifyHours(hoursOfOne, red, red, none, none);
 			});
 		});
 		describe("the hour is 13", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(13);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(13);
 			})
 			it("has hoursOfFive as [R R O O]", function(){
-				verifyHours(hoursOfFive.children, red, red, none, none);
+				verifyHours(hoursOfFive, red, red, none, none);
 			});
 			it("has hoursOfOne as [R R R O]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, none);
+				verifyHours(hoursOfOne, red, red, red, none);
 			});
 		});
 		describe("the hour is 14", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(14);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(14);
 			})
 			it("has hoursOfFive as [R R O O]", function(){
-				verifyHours(hoursOfFive.children, red, red, none, none);
+				verifyHours(hoursOfFive, red, red, none, none);
 			});
 			it("has hoursOfOne as [R R R R]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, red);
+				verifyHours(hoursOfOne, red, red, red, red);
 			});
 		});
 		describe("the hour is 15", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(15);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(15);
 			})
 			it("has hoursOfFive as [R R R O]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, none);
+				verifyHours(hoursOfFive, red, red, red, none);
 			});
 			it("has hoursOfOne as [O O O O]", function(){
-				verifyHours(hoursOfOne.children, none, none, none, none);
+				verifyHours(hoursOfOne, none, none, none, none);
 			});
 		});
 		describe("the hour is 16", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(16);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(16);
 			})
 			it("has hoursOfFive as [R R R O]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, none);
+				verifyHours(hoursOfFive, red, red, red, none);
 			});
 			it("has hoursOfOne as [R O O O]", function(){
-				verifyHours(hoursOfOne.children, red, none, none, none);
+				verifyHours(hoursOfOne, red, none, none, none);
 			});
 		});
 		describe("the hour is 17", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(17);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(17);
 			})
 			it("has hoursOfFive as [R R R O]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, none);
+				verifyHours(hoursOfFive, red, red, red, none);
 			});
 			it("has hoursOfOne as [R R O O]", function(){
-				verifyHours(hoursOfOne.children, red, red, none, none);
+				verifyHours(hoursOfOne, red, red, none, none);
 			});
 		});
 		describe("the hour is 18", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(18);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(18);
 			})
 			it("has hoursOfFive as [R R R O]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, none);
+				verifyHours(hoursOfFive, red, red, red, none);
 			});	
 			it("has hoursOfOne as [R R R O]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, none);
+				verifyHours(hoursOfOne, red, red, red, none);
 			});
 		});
 		describe("the hour is 19", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(19);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(19);
 			})
 			it("has hoursOfFive as [R R R O]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, none);
+				verifyHours(hoursOfFive, red, red, red, none);
 			});
 			it("has hoursOfOne as [R R R R]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, red);
+				verifyHours(hoursOfOne, red, red, red, red);
 			});
 		});
 		describe("the hour is 20", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(20);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(20);
 			})
 			it("has hoursOfFive as [R R R R]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, red);
+				verifyHours(hoursOfFive, red, red, red, red);
 			});
 			it("has hoursOfOne as [O O O O]", function(){
-				verifyHours(hoursOfOne.children, none, none, none, none);
+				verifyHours(hoursOfOne, none, none, none, none);
 			});
 		});
 		describe("the hour is 21", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(21);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(21);
 			})
 			it("has hoursOfFive as [R R R R]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, red);
+				verifyHours(hoursOfFive, red, red, red, red);
 			});
 			it("has hoursOfOne as [R O O O]", function(){
-				verifyHours(hoursOfOne.children, red, none, none, none);
+				verifyHours(hoursOfOne, red, none, none, none);
 			});
 		});
 		describe("the hour is 22", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(22);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(22);
 			})
 			it("has hoursOfFive as [R R R R]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, red);
+				verifyHours(hoursOfFive, red, red, red, red);
 			});
 			it("has hoursOfOne as [R R O O]", function(){
-				verifyHours(hoursOfOne.children, red, red, none, none);
+				verifyHours(hoursOfOne, red, red, none, none);
 			});
 		});
 		describe("the hour is 23", function(){
 			beforeEach(function(){
-				BerlinClock.updateHours(23);	
-				hoursOfFive = document.getElementById("hoursOfFive");
-				hoursOfOne = document.getElementById("hoursOfOne");
+				updateHours(23);
 			})
 			it("has hoursOfFive as [R R R R]", function(){
-				verifyHours(hoursOfFive.children, red, red, red, red);
+				verifyHours(hoursOfFive, red, red, red, red);
 			});
 			it("has hoursOfOne as [R R R O]", function(){
-				verifyHours(hoursOfOne.children, red, red, red, none);
+				verifyHours(hoursOfOne, red, red, red, none);
 			});
 		});
 	});
 	describe("updateMinutes", function(){
 		var verifyMinutesOfFive = function(five, ten, fifteen, twenty, twentyFive, thirty, thirtyFive, forty, fortyFive, fifty, fiftyFive){
-				var children = document.getElementById("minutesOfFive").children;
-				expect(children[0].className).toBe(five);
-				expect(children[1].className).toBe(ten);
-				expect(children[2].className).toBe(fifteen);
-				expect(children[3].className).toBe(twenty);
-				expect(children[4].className).toBe(twentyFive);
-				expect(children[5].className).toBe(thirty);
-				expect(children[6].className).toBe(thirtyFive);
-				expect(children[7].className).toBe(forty);
-				expect(children[8].className).toBe(fortyFive);
-				expect(children[9].className).toBe(fifty);
-				expect(children[10].className).toBe(fiftyFive);
+				var children = $("#minutesOfFive div");
+				expect(children[0]).toHaveClass(five);
+				expect(children[1]).toHaveClass(ten);
+				expect(children[2]).toHaveClass(fifteen);
+				expect(children[3]).toHaveClass(twenty);
+				expect(children[4]).toHaveClass(twentyFive);
+				expect(children[5]).toHaveClass(thirty);
+				expect(children[6]).toHaveClass(thirtyFive);
+				expect(children[7]).toHaveClass(forty);
+				expect(children[8]).toHaveClass(fortyFive);
+				expect(children[9]).toHaveClass(fifty);
+				expect(children[10]).toHaveClass(fiftyFive);
 			},
 			verifyMinutesOfOne = function(one, two, three, four){
-				var children = document.getElementById("minutesOfOne").children;
-				expect(children[0].className).toBe(one);
-				expect(children[1].className).toBe(two);
-				expect(children[2].className).toBe(three);
-				expect(children[3].className).toBe(four);
+				var children = $("#minutesOfOne div");
+				expect(children[0]).toHaveClass(one);
+				expect(children[1]).toHaveClass(two);
+				expect(children[2]).toHaveClass(three);
+				expect(children[3]).toHaveClass(four);
 			};
 		describe("the minute is 0", function(){
 			beforeEach(function(){
@@ -627,32 +583,32 @@ describe("BerlinClock", function(){
 	describe("updateClock", function(){
 		it("adds a leading 0 to seconds when the second is 0", function(){
 			BerlinClock.updateClock(0, 0, 0);
-			var time = document.getElementById("clock").innerHTML;
+			var time = $("#clock").html();
 			expect(time).toBe("00:00:00");
 		});
 		it("adds a leading 0 to seconds when the second is 9", function(){
 			BerlinClock.updateClock(0, 0, 9);
-			var time = document.getElementById("clock").innerHTML;
+			var time = $("#clock").html();
 			expect(time).toBe("00:00:09");
 		});
 		it("adds a leading 0 to minutess when the minute is 0", function(){
 			BerlinClock.updateClock(0, 0, 0);
-			var time = document.getElementById("clock").innerHTML;
+			var time = $("#clock").html();
 			expect(time).toBe("00:00:00");
 		});
 		it("adds a leading 0 to minutes when the minute is 9", function(){
 			BerlinClock.updateClock(0, 9, 0);
-			var time = document.getElementById("clock").innerHTML;
+			var time = $("#clock").html();
 			expect(time).toBe("00:09:00");
 		});
 		it("adds a leading 0 to hours when the hour is 0", function(){
 			BerlinClock.updateClock(0, 0, 0);
-			var time = document.getElementById("clock").innerHTML;
+			var time = $("#clock").html();
 			expect(time).toBe("00:00:00");
 		});
 		it("adds a leading 0 to hours when the hour is 9", function(){
 			BerlinClock.updateClock(9, 0, 0);
-			var time = document.getElementById("clock").innerHTML;
+			var time = $("#clock").html();
 			expect(time).toBe("09:00:00");
 		});
 	});

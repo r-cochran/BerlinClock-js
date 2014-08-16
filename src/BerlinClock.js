@@ -11,21 +11,8 @@ var BerlinClock = {
 		BerlinClock.updateClock(hours, minutes, seconds);
 	},
 	reset: function(){
-		var hoursOfFive = document.getElementById("hoursOfFive").children,
-			hoursOfOne = document.getElementById("hoursOfOne").children,
-			minutesOfFive = document.getElementById("minutesOfFive").children,
-			minutesOfOne = document.getElementById("minutesOfOne").children,
-			yellow = "yellow",
-			red = "red";
-		for(var i = 0; i < 4; i++){
-			hoursOfFive[i].classList.remove(red);
-			hoursOfOne[i].classList.remove(red);
-			minutesOfOne[i].classList.remove(yellow);
-		}
-		for(var i = 0; i < 11; i++){
-			minutesOfFive[i].classList.remove(red);
-			minutesOfFive[i].classList.remove(yellow);
-		}
+		$(".yellow").removeClass("yellow");
+		$(".red").removeClass("red");
 	},
 	updateClock: function(hours, minutes, seconds){
 		var fixTime = function(n){
@@ -37,30 +24,28 @@ var BerlinClock = {
 		hours = fixTime(hours);
 		minutes = fixTime(minutes);
 		seconds = fixTime(seconds);
-		document.getElementById("clock").innerHTML = hours + ":" + minutes + ":" + seconds;
+		$("#clock").html(hours + ":" + minutes + ":" + seconds);
 	},
 	updateSeconds: function(seconds){
-		var secondDiv = document.getElementById("seconds").children[0];
+		var secondDiv = $("#seconds div").removeClass("yellow");
 		if(seconds % 2 != 0){
-			secondDiv.classList.add("yellow");
-		} else {
-			secondDiv.classList.remove("yellow");
-		}
+			secondDiv.addClass("yellow");
+		} 
 	},
 	updateHours: function(hours){
-		var hoursOfFive = document.getElementById("hoursOfFive").children,
-			hoursOfOne = document.getElementById("hoursOfOne").children,
+		var hoursOfFive = $("#hoursOfFive div"),
+			hoursOfOne = $("#hoursOfOne div"),
 			red = "red";
 		for(var i = 0; i <= hours / 5 - 1; i++){
-			hoursOfFive[i].classList.add(red);
+			$(hoursOfFive[i]).addClass(red);
 		}
 		for(var i = 0; i < hours % 5; i++){
-			hoursOfOne[i].classList.add(red);
+			$(hoursOfOne[i]).addClass(red);
 		}
 	},
 	updateMinutes: function(minutes){
-		var minutesOfFive = document.getElementById("minutesOfFive").children,
-			minutesOfOne = document.getElementById("minutesOfOne").children,
+		var minutesOfFive = $("#minutesOfFive div"),
+			minutesOfOne = $("#minutesOfOne div"),
 			yellow = "yellow",
 			red = "red";
 		for(var i = 0; i <= minutes / 5 - 1; i++){
@@ -68,10 +53,10 @@ var BerlinClock = {
 			if((i + 1) % 3 == 0){
 				color = red;
 			}
-			minutesOfFive[i].classList.add(color);
+			$(minutesOfFive[i]).addClass(color);
 		}
 		for(var i = 0; i < minutes % 5; i++){
-			minutesOfOne[i].classList.add(yellow);
+			$(minutesOfOne[i]).addClass(yellow);
 		}	
 	}
 }
