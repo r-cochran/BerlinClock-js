@@ -11,20 +11,15 @@ var BerlinClock = {
 		BerlinClock.updateClock(hours, minutes, seconds);
 	},
 	reset: function(){
-		var hoursOfFive = document.getElementById("hoursOfFive").children,
-			hoursOfOne = document.getElementById("hoursOfOne").children,
-			minutesOfFive = document.getElementById("minutesOfFive").children,
-			minutesOfOne = document.getElementById("minutesOfOne").children,
+		var redLights = document.getElementsByClassName("red"),
+			yellowLights = document.getElementsByClassName("yellow"),
 			yellow = "yellow",
 			red = "red";
-		for(var i = 0; i < 4; i++){
-			hoursOfFive[i].classList.remove(red);
-			hoursOfOne[i].classList.remove(red);
-			minutesOfOne[i].classList.remove(yellow);
+		for(var i = 0; i < redLights.length; i++){
+			redLights[i].classList.remove(red);
 		}
-		for(var i = 0; i < 11; i++){
-			minutesOfFive[i].classList.remove(red);
-			minutesOfFive[i].classList.remove(yellow);
+		for(var i = 0; i < yellowLights.length; i++){
+			yellowLights[i].classList.remove(yellow);
 		}
 	},
 	updateClock: function(hours, minutes, seconds){
@@ -43,8 +38,6 @@ var BerlinClock = {
 		var secondDiv = document.getElementById("seconds").children[0];
 		if(seconds % 2 != 0){
 			secondDiv.classList.add("yellow");
-		} else {
-			secondDiv.classList.remove("yellow");
 		}
 	},
 	updateHours: function(hours){
