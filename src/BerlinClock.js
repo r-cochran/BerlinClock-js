@@ -1,6 +1,7 @@
 var BerlinClock = {	
 	tick: function(){
-		var second = 1;
+		var time = new Date(),
+			second = time.getSeconds();
 		BerlinClock.updateSeconds(second);
 	},
 	updateSeconds: function(second){

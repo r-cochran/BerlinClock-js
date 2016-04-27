@@ -13,11 +13,14 @@ describe("BerlinClock", function(){
 
 	describe("tick", function(){
 		beforeEach(function(){
+			//setup of spies
 			spyOn(BerlinClock, "updateSeconds");
 			spyOn(BerlinClock, "updateHours");
 			spyOn(BerlinClock, "updateMinutes");
 			spyOn(BerlinClock, "updateClock");
 			spyOn(BerlinClock, "reset");
+
+			//invokaction of the worker function
 			BerlinClock.tick();
 		});
 
